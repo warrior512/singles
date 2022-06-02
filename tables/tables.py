@@ -16,7 +16,7 @@ def print_logo():
           --------------------------
           |  01  |  Ivan  |  +7(915)
 
- © 2020   nikolaysmirnov86@gmail.com
+ © 2022   nikolaysmirnov86@gmail.com
  ''')
 
 def main_menu():
@@ -52,7 +52,13 @@ def new_table(name):
     else:
         if os.system('touch ' + name) != 0:
             return print(Fore.RED + 'invalid filename')
-    columns = int(input('columns: ').strip())
+    while True:
+        try:
+            columns = int(input('columns: ').strip())
+            if type(columns) == int:
+                break
+        except:
+            print('enter digit')
     cnt = 1
     list = []
     while cnt <= columns:
@@ -70,7 +76,9 @@ def file_to_list(name):
 
 def delete():
     os.system('ls *.txt')
-    name = input('file name: ').strip()
+    name = input('\ndelete file name (c - cancel): ').strip()
+    if name == 'c':
+    	return
     os.system('rm ' + name + '.txt')
 
 def add_row(flist):
