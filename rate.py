@@ -1,3 +1,5 @@
+#v0.0.1
+
 import requests
 from bs4 import BeautifulSoup as bS, SoupStrainer
 from colorama import Fore, init
@@ -118,5 +120,3 @@ print_table(today_list)
 
 print(Fore.CYAN + '''==========================================================
           © 2022   nikolaysmirnov86@gmail.com''')
-
-#v0.0.1
