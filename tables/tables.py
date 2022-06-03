@@ -55,17 +55,28 @@ def new_table(name):
     while True:
         try:
             columns = int(input('columns: ').strip())
+            if columns == 0:
+                print(Fore.RED + 'invalid value')
+                continue
             if type(columns) == int:
                 break
         except:
-            print('enter digit')
+            print(Fore.RED + 'enter digit')
     cnt = 1
-    list = []
+    list_columns = []
     while cnt <= columns:
-        list.append(input('column #' + str(cnt) + ': ').strip())
+        name_column = input('column #' + str(cnt) + ': ').strip()
+        if name_column == '':
+            print(Fore.RED + 'empty value')
+            continue
+        if name_column in list_columns:
+            print(Fore.RED + 'column name already exists')
+            continue
+        list_columns.append(name_column)
         cnt += 1
     with open(name, 'a') as f:
-        f.write(' '.join(list))
+        f.write(' '.join(list_columns))
+    open_table(name[:-4])
 
 def file_to_list(name):
     file = open(name, 'r')
