@@ -5,7 +5,7 @@ init(autoreset=True)
 
 
 def print_logo():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('clear')
     print(Fore.YELLOW + '''\n ____  ____  ____  ____  ____  ____ 
 ||t ||||a ||||b ||||l ||||e ||||s ||
 ||__||||__||||__||||__||||__||||__||
@@ -52,7 +52,7 @@ def open_menu():
 
 
 def ls():
-    os.system('dir /b *.txt' if os.name == 'nt' else 'dir *.txt')
+    os.system('ls *.txt')
 
 
 def new_table(name):
@@ -311,7 +311,7 @@ def main():
             delete()
         elif go.lower() == 'o':
             print_logo()
-            os.system('dir /b *.txt' if os.name == 'nt' else 'dir *.txt')
+            os.system('ls *.txt')
             open_table(input('\nname: '))
         elif go.lower() == 'x':
             exit()
