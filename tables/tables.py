@@ -28,12 +28,16 @@ def main_menu():
     print('\n' + new, open, list, exit, delete + '\n')
 
 def open_menu():
-    add = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'dd'
-    save = Back.YELLOW + Fore.BLACK + 's' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'ave'
-    exit = Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'e' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'x' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'it'
-    delete = Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'el'
-    edit = Back.YELLOW + Fore.BLACK + 'e' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'dit'
-    print('\n' + add, edit, delete, save, exit + '\n')
+    #add = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd'
+    add_row = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'r' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ow'
+    add_col = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'c' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ol'
+    save = Back.YELLOW + Fore.BLACK + 's' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ave'
+    exit = Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'e' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'x' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'it'
+    delete_row = Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'el' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'r' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ow'
+    delete_col = Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'el' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'c' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ol'
+    edit = Back.YELLOW + Fore.BLACK + 'e' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dit'
+    help = Back.YELLOW + Fore.BLACK + 'h' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'elp'
+    print('\n' + add_row, add_col, edit, help + '\n' + delete_row, delete_col, save, exit + '\n')
 
 def ls():
     os.system('ls *.txt')
@@ -79,9 +83,9 @@ def new_table(name):
     open_table(name[:-4])
 
 def file_to_list(name):
-    file = open(name, 'r')
+    f = open(name, 'r')
     flist = []
-    for line in file:
+    for line in f:
         flist.append(line.split())
     return flist
 
@@ -109,6 +113,9 @@ def add_row(flist):
             row.append(value)
     flist.insert(int(index) + 1, row)
     return flist
+
+def add_column(flist):
+    pass
 
 def save_table(fname, flist):
     with open(fname, 'w') as f:
@@ -172,6 +179,18 @@ def delete_row(flist):
     del flist[int(del_row)]
     return flist
 
+def delete_col(flist):
+    while True:
+        d_col = input('name column: ').strip()
+        if d_col not in flist[0]:
+            print(Fore.RED + 'column not found')
+            continue
+        ind = flist[0].index(d_col)
+        break
+    for line in flist:
+        del line[ind]
+    return flist
+
 def edit_row(flist):
     ed_row = input('edit row: ').strip()
     #ed_row = ed_row.strip()
@@ -191,6 +210,16 @@ def edit_row(flist):
             flist[int(ed_row)][index] = edit_val
         index += 1
     return flist
+
+def help_table():
+    print('''ar - add row
+ac - add column
+e - edit row
+dr - delete row
+dc -delete column
+s - save changes
+x - exit''')
+    input()
         
 def open_table(name):
     fname = name + '.txt'
@@ -206,27 +235,36 @@ def open_table(name):
         print_table(flist)
         print('columns: ' + str(len(flist[0])) + '  rows: ' + str(len(flist) - 1))
         open_menu()
-        item = input('>')
-        if item.lower() == 'a':
+        item = input('>').strip()
+        if item.lower() == 'ar':
             flist = add_row(flist)
+            print_logo()
+        elif item.lower() == 'ac':
+            flist = add_column(flist)
             print_logo()
         elif item.lower() == 's':
             print_logo()
             save_table(fname, flist)
             print('table ' + name + ' saved')
         elif item.lower() == 'x':
-            bool = exit_table(fname, flist, name)
+            choice = exit_table(fname, flist, name)
             print_logo()
-            if bool == True:
+            if choice == True:
                 print('table ' + name + ' saved')
-            elif bool == False:
+            elif choice == False:
                 print('table ' + name + ' not saved')
             return
-        elif item.lower() == 'd':
+        elif item.lower() == 'dr':
             flist = delete_row(flist)
+            print_logo()
+        elif item.lower() == 'dc':
+            flist = delete_col(flist)
             print_logo()
         elif item.lower() == 'e':
             flist = edit_row(flist)
+            print_logo()
+        elif item.lower() == 'h':
+            help_table()
             print_logo()
         else:
             print_logo()
