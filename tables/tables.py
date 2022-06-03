@@ -1,13 +1,13 @@
 from colorama import init, Fore, Back, Style
 import os
 
-init(autoreset = True)
+init(autoreset=True)
+
 
 def print_logo():
-    os.system('clear')
-    gr = Fore.GREEN
-    print(Fore.YELLOW + ''' ____  ____  ____  ____  ____  ____ 
-||''' + gr + '''t''' + Fore.YELLOW + ''' ||||'''  + gr + '''a''' + Fore.YELLOW + ''' ||||''' + gr + '''b''' + Fore.YELLOW + ''' ||||''' + gr + '''l ''' + Fore.YELLOW + '''||||''' + gr + '''e ''' + Fore.YELLOW + '''||||''' + gr + '''s''' + Fore.YELLOW + ''' ||
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(Fore.YELLOW + '''\n ____  ____  ____  ____  ____  ____ 
+||t ||||a ||||b ||||l ||||e ||||s ||
 ||__||||__||||__||||__||||__||||__||
 |/__\||/__\||/__\||/__\||/__\||/__\|
 
@@ -19,37 +19,50 @@ def print_logo():
  © 2022   nikolaysmirnov86@gmail.com
  ''')
 
+
 def main_menu():
-    new = Back.YELLOW + Fore.BLACK + 'n' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'ew'
-    open = Back.YELLOW + Fore.BLACK + 'o' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'pen'
-    exit = Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'e' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'x' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'it'
-    list = Back.YELLOW + Fore.BLACK + 'l' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'ist'
-    delete = Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW+ Style.BRIGHT + 'el'
-    print('\n' + new, open, list, exit, delete + '\n')
+    byl = Back.YELLOW
+    sra = Style.RESET_ALL
+    fbc = Fore.BLACK
+    fyl = Fore.YELLOW
+    sbr = Style.BRIGHT
+    new_t = byl + fbc + 'n' + sra + fyl + sbr + 'ew'
+    open_t = byl + fbc + 'o' + sra + fyl + sbr + 'pen'
+    exit_p = fyl + sbr + 'e' + sra + byl + fbc + 'x' + sra + fyl + sbr + 'it'
+    list_t = byl + fbc + 'l' + sra + fyl + sbr + 'ist'
+    delete_t = byl + fbc + 'd' + sra + fyl + sbr + 'el'
+    print('\n' + new_t, open_t, list_t, exit_p, delete_t + Style.RESET_ALL + '\n')
+
 
 def open_menu():
-    #add = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd'
-    add_row = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'r' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ow'
-    add_col = Back.YELLOW + Fore.BLACK + 'a' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dd' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'c' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ol'
-    save = Back.YELLOW + Fore.BLACK + 's' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ave'
-    exit = Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'e' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'x' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'it'
-    delete_row = Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'el' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'r' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ow'
-    delete_col = Back.YELLOW + Fore.BLACK + 'd' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'el' + Style.RESET_ALL + Back.YELLOW + Fore.BLACK + 'c' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'ol'
-    edit = Back.YELLOW + Fore.BLACK + 'e' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'dit'
-    help = Back.YELLOW + Fore.BLACK + 'h' + Back.BLACK  + Fore.YELLOW + Style.BRIGHT + 'elp'
-    print('\n' + add_row, add_col, edit, help + '\n' + delete_row, delete_col, save, exit + '\n')
+    byl = Back.YELLOW
+    sra = Style.RESET_ALL
+    fbc = Fore.BLACK
+    fyl = Fore.YELLOW
+    sbr = Style.BRIGHT
+    add_row_t = byl + fbc + 'a' + sra + fyl + sbr + 'dd' + sra + byl + fbc + 'r' + sra + fyl + sbr + 'ow'
+    add_col = byl + fbc + 'a' + sra + fyl + sbr + 'dd' + sra + byl + fbc + 'c' + sra + fyl + sbr + 'ol'
+    save = byl + fbc + 's' + sra + fyl + sbr + 'ave'
+    exit_t = fyl + sbr + 'e' + sra + byl + fbc + 'x' + sra + fyl + sbr + 'it'
+    del_row = byl + fbc + 'd' + sra + fyl + sbr + 'el' + sra + byl + fbc + 'r' + sra + fyl + sbr + 'ow'
+    del_col = byl + fbc + 'd' + sra + fyl + sbr + 'el' + sra + byl + fbc + 'c' + sra + fyl + sbr + 'ol'
+    edit = byl + fbc + 'e' + sra + fyl + sbr + 'dit'
+    help_m = byl + fbc + 'h' + sra + fyl + sbr + 'elp' + sra
+    print('\n' + add_row_t, add_col, edit, help_m + '\n\n' + del_row, del_col, save, exit_t + '\n')
+
 
 def ls():
-    os.system('ls *.txt')
+    os.system('dir /b *.txt' if os.name == 'nt' else 'dir *.txt')
+
 
 def new_table(name):
-    if os.path.isfile(name) == True:
+    if os.path.isfile(name):
         while True:
-            acept = input(name + ' already exists, want to overwrite? (y/n) ').strip()
-            if acept.lower() == 'y':
+            accept = input(name + ' already exists, want to overwrite? (y/n) ').strip()
+            if accept.lower() == 'y':
                 os.system('touch ' + name)
                 break
-            elif acept.lower() == 'n':
+            elif accept.lower() == 'n':
                 return
             else:
                 print(Fore.RED + 'command not found')
@@ -82,6 +95,7 @@ def new_table(name):
         f.write(' '.join(list_columns))
     open_table(name[:-4])
 
+
 def file_to_list(name):
     f = open(name, 'r')
     flist = []
@@ -89,17 +103,19 @@ def file_to_list(name):
         flist.append(line.split())
     return flist
 
+
 def delete():
     os.system('ls *.txt')
     name = input('\ndelete file name (c - cancel): ').strip()
     if name == 'c':
-    	return
+        return
     os.system('rm ' + name + '.txt')
+
 
 def add_row(flist):
     row = []
     index = input('after row (enter for add row to end): ').strip()
-    if index.isdigit() == False and index != '' or index.isdigit() == True and int(index) > len(flist) - 1:
+    if not index.isdigit() and index != '' or index.isdigit() and int(index) > len(flist) - 1:
         print('invalid value')
         input()
         return flist
@@ -114,8 +130,10 @@ def add_row(flist):
     flist.insert(int(index) + 1, row)
     return flist
 
+
 def add_column(flist):
     pass
+
 
 def save_table(fname, flist):
     with open(fname, 'w') as f:
@@ -126,7 +144,7 @@ def save_table(fname, flist):
                 cnt += 1
             else:
                 f.write('\n' + ' '.join(line))
-            
+
 
 def exit_table(fname, flist, name):
     while True:
@@ -142,8 +160,9 @@ def exit_table(fname, flist, name):
         else:
             return
 
+
 def print_table(flist):
-    max_lens=[]
+    max_lens = []
     for key in flist[0]:
         max_lens.append(len(key))
     for line in flist:
@@ -158,26 +177,28 @@ def print_table(flist):
         if cnt == 1:
             print('-' * (sum(max_lens) + len(max_lens) + 2 + len(str(len(flist))) - 1))
         if cnt == 0:
-            print('#  '.rjust(2 + len(str(len(flist))), ' '), end ='')
+            print('#  '.rjust(2 + len(str(len(flist))), ' '), end='')
         else:
-            print((str(cnt) + '| ').rjust(2 + len(str(len(flist))), ' '), end ='')
+            print((str(cnt) + '| ').rjust(2 + len(str(len(flist))), ' '), end='')
         for i in line:
             if i == 'None':
                 i = ''
-            print(i.ljust(max_lens[index], ' '), end = ' ')
+            print(i.ljust(max_lens[index], ' '), end=' ')
             index += 1
         print()
         cnt += 1
     print('-' * (sum(max_lens) + len(max_lens) + 2 + len(str(len(flist))) - 1))
 
+
 def delete_row(flist):
     del_row = input('delete row:').strip()
-    if del_row.isdigit() == False or del_row.isdigit() == True and int(del_row) > len(flist) - 1:
+    if not del_row.isdigit() or del_row.isdigit() and int(del_row) > len(flist) - 1:
         print('invalid input')
         input()
         return flist
     del flist[int(del_row)]
     return flist
+
 
 def delete_col(flist):
     while True:
@@ -191,10 +212,10 @@ def delete_col(flist):
         del line[ind]
     return flist
 
+
 def edit_row(flist):
     ed_row = input('edit row: ').strip()
-    #ed_row = ed_row.strip()
-    if ed_row.isdigit() == False or ed_row.isdigit() == True and int(ed_row) > len(flist) - 1:
+    if not ed_row.isdigit() or ed_row.isdigit() and int(ed_row) > len(flist) - 1:
         print('invalid input')
         input()
         return flist
@@ -211,6 +232,7 @@ def edit_row(flist):
         index += 1
     return flist
 
+
 def help_table():
     print('''ar - add row
 ac - add column
@@ -220,10 +242,11 @@ dc -delete column
 s - save changes
 x - exit''')
     input()
-        
+
+
 def open_table(name):
     fname = name + '.txt'
-    if os.path.isfile(fname) == False:
+    if not os.path.isfile(fname):
         print('file not found')
         input()
         return
@@ -249,9 +272,9 @@ def open_table(name):
         elif item.lower() == 'x':
             choice = exit_table(fname, flist, name)
             print_logo()
-            if choice == True:
+            if choice:
                 print('table ' + name + ' saved')
-            elif choice == False:
+            elif not choice:
                 print('table ' + name + ' not saved')
             return
         elif item.lower() == 'dr':
@@ -270,6 +293,7 @@ def open_table(name):
             print_logo()
             print(Fore.RED + 'command not found')
 
+
 def main():
     print_logo()
     while True:
@@ -287,12 +311,13 @@ def main():
             delete()
         elif go.lower() == 'o':
             print_logo()
-            os.system('ls *.txt')
+            os.system('dir /b *.txt' if os.name == 'nt' else 'dir *.txt')
             open_table(input('\nname: '))
         elif go.lower() == 'x':
             exit()
         else:
             print_logo()
             print(Fore.RED + 'command not found')
+
 
 main()
