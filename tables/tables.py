@@ -6,7 +6,7 @@ init(autoreset=True)
 
 def print_logo():
     os.system('clear')
-    print(Fore.YELLOW + '''\n ____  ____  ____  ____  ____  ____ 
+    print(Fore.YELLOW + Style.BRIGHT + '''\n ____  ____  ____  ____  ____  ____ 
 ||t ||||a ||||b ||||l ||||e ||||s ||
 ||__||||__||||__||||__||||__||||__||
 |/__\||/__\||/__\||/__\||/__\||/__\|
@@ -16,7 +16,7 @@ def print_logo():
           --------------------------
           |  01  |  Ivan  |  +7(915)
 
- © 2022   nikolaysmirnov86@gmail.com
+(c) 2022  nikolaysmirnov86@gmail.com
  ''')
 
 
