@@ -132,7 +132,31 @@ def add_row(flist):
 
 
 def add_column(flist):
-    pass
+    while True:
+        index_add_col = input('number column add (1-' + str(len(flist[0]) + 1) + '): ')
+        try:
+            index_add_col = int(index_add_col)
+            if index_add_col > len(flist[0]) + 1 or index_add_col < 1:
+                print(Fore.RED + 'invalid value')
+                continue
+            else:
+                break
+        except:
+            print(Fore.RED + 'invalid value')
+            continue
+    while True:
+        new_col_name = input('new column name: ')
+        if new_col_name in  flist[0]:
+            print(Fore.RED + 'column name already exists')
+            continue
+        break
+    for line in flist:
+        if line == flist[0]:
+            line.insert(index_add_col - 1, new_col_name)
+        else:
+            line.insert(index_add_col - 1, 'None')
+    return flist
+    
 
 
 def save_table(fname, flist):
@@ -214,7 +238,7 @@ def delete_col(flist):
 
 
 def edit_row(flist):
-    ed_row = input('edit row: ').strip()
+    ed_row = input('edit row (0 to edit columns names): ').strip()
     if not ed_row.isdigit() or ed_row.isdigit() and int(ed_row) > len(flist) - 1:
         print('invalid input')
         input()
