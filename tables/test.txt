@@ -1,5 +1,6 @@
-name tel email
-Petya 89476534478 example@mail.com
-Bill None bill_mail@mail.ru
-Nikolay 89451234567 None
-Jhon 34567653483 rembo@mail.us
+id name tel email
+None Petya 89476534478 example@mail.com
+None Bill None bill_mail@mail.ru
+None Nikolay 89451234567 None
+None Jhon 34567653483 rembo@mail.us
+5 None None None

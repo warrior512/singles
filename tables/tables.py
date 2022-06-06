@@ -47,8 +47,21 @@ def open_menu():
     del_row = byl + fbc + 'd' + sra + fyl + sbr + 'el' + sra + byl + fbc + 'r' + sra + fyl + sbr + 'ow'
     del_col = byl + fbc + 'd' + sra + fyl + sbr + 'el' + sra + byl + fbc + 'c' + sra + fyl + sbr + 'ol'
     edit = byl + fbc + 'e' + sra + fyl + sbr + 'dit'
+    search = byl + fbc + 's' + sra + fyl + sbr + 'earc' + sra + byl + fbc + 'h' + sra
     help_m = byl + fbc + 'h' + sra + fyl + sbr + 'elp' + sra
-    print('\n' + add_row_t, add_col, edit, help_m + '\n\n' + del_row, del_col, save, exit_t + '\n')
+    print('\n' + add_row_t, add_col, edit, search,  help_m + '\n\n' + del_row, del_col, save, exit_t + '\n')
+
+
+def search_menu():
+    byl = Back.YELLOW
+    sra = Style.RESET_ALL
+    fbc = Fore.BLACK
+    fyl = Fore.YELLOW
+    sbr = Style.BRIGHT
+    exit_s = fyl + sbr + 'e' + sra + byl + fbc + 'x' + sra + fyl + sbr + 'it'
+    save_s = byl + fbc + 's' + sra + fyl + sbr + 'ave'
+    search = byl + fbc + 's' + sra + fyl + sbr + 'earc' + sra + byl + fbc + 'h' + sra
+    print('\n' + exit_s, save_s, search + '\n')
 
 
 def ls():
@@ -133,7 +146,7 @@ def add_row(flist):
 
 def add_column(flist):
     while True:
-        index_add_col = input('number column add (1-' + str(len(flist[0]) + 1) + '): ')
+        index_add_col = input('number column add (1-' + str(len(flist[0]) + 1) + '): ').strip()
         try:
             index_add_col = int(index_add_col)
             if index_add_col > len(flist[0]) + 1 or index_add_col < 1:
@@ -145,7 +158,7 @@ def add_column(flist):
             print(Fore.RED + 'invalid value')
             continue
     while True:
-        new_col_name = input('new column name: ')
+        new_col_name = input('new column name: ').strip()
         if new_col_name in  flist[0]:
             print(Fore.RED + 'column name already exists')
             continue
@@ -157,7 +170,6 @@ def add_column(flist):
             line.insert(index_add_col - 1, 'None')
     return flist
     
-
 
 def save_table(fname, flist):
     with open(fname, 'w') as f:
@@ -212,6 +224,7 @@ def print_table(flist):
         print()
         cnt += 1
     print('-' * (sum(max_lens) + len(max_lens) + 2 + len(str(len(flist))) - 1))
+    print('columns: ' + str(len(flist[0])) + '  rows: ' + str(len(flist) - 1))
 
 
 def delete_row(flist):
@@ -257,6 +270,61 @@ def edit_row(flist):
     return flist
 
 
+def save_search(search_name, search_arr):
+    if os.path.isfile(search_name):
+        while True:
+            accept = input(search_name + ' already exists, want to overwrite? (y/n) ').strip()
+            if accept.lower() == 'y':
+                os.system('touch ' + search_name)
+                break
+            elif accept.lower() == 'n':
+                return
+            else:
+                print(Fore.RED + 'command not found')
+    else:
+        if os.system('touch ' + search_name) != 0:
+            return print(Fore.RED + 'invalid filename')
+    save_table(search_name, search_arr)
+    print(search_name + ' was saved')
+    input()
+
+
+
+def search_in_table(list_for_search):
+    while True:
+        search_arr = []
+        search_str = input('search phrase: ').strip()
+        for line in list_for_search:
+            if line == list_for_search[0]:
+                search_arr.append(line)
+                continue
+            for item in line:
+                if search_str.lower() in item.lower() and line not in search_arr:
+                    search_arr.append(line)
+        status = ''
+        while True:
+            os.system('clear')
+            print_logo()
+            print_table(search_arr)
+            search_menu()
+            item = input().strip()
+            if item.lower() == 'x':
+                return
+            elif item.lower() == 's':
+                table_name = input('table name:').strip() + '.txt'
+                save_search(table_name, search_arr)
+            elif item.lower() == 'sh':
+                list_for_search = search_arr
+                break
+            else:
+                status = Fore.RED + 'command not found'
+                input()
+                continue
+
+                   
+        
+
+
 def help_table():
     print('''ar - add row
 ac - add column
@@ -280,7 +348,6 @@ def open_table(name):
         print('\ntable: ' + name)
         print('-' * (7 + len(name)))
         print_table(flist)
-        print('columns: ' + str(len(flist[0])) + '  rows: ' + str(len(flist) - 1))
         open_menu()
         item = input('>').strip()
         if item.lower() == 'ar':
@@ -309,6 +376,9 @@ def open_table(name):
             print_logo()
         elif item.lower() == 'e':
             flist = edit_row(flist)
+            print_logo()
+        elif item.lower() == 'sh':
+            search_in_table(flist)
             print_logo()
         elif item.lower() == 'h':
             help_table()
@@ -343,5 +413,5 @@ def main():
             print_logo()
             print(Fore.RED + 'command not found')
 
-
-main()
+if __name__ == '__main__':
+    main()
